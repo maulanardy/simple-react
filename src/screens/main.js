@@ -28,6 +28,24 @@ export default class main extends Component {
     })
   }
 
+  deleteTask(task){
+    let taskId = task.id
+
+    Resource.deteleTask(taskId)
+    .then((res) => {
+      alert("Berhasil di delete")
+      this.deleteItemById(task.id)
+    })
+    .catch((err) => {
+      alert(err)
+    })
+  }
+
+  deleteItemById(id){
+    const filteredData = this.state.data.filter(item => item.id !== id);
+    this.setState({ data: filteredData });
+  }
+
   render() {
     return (
       <View>
@@ -57,7 +75,7 @@ export default class main extends Component {
                     <Image style={{width: 13, height:13, tintColor:"#FFF"}} source={require("../assets/images/edit.png")}/>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.deleteTask(this.state.data[index])}>
                   <View style={{backgroundColor:"#c0392b", padding:5, justifyContent:"center", alignItems:"center", width:30, height:30, borderRadius: 15}}>
                     <Image style={{width: 13, height:13, tintColor:"#FFF"}} source={require("../assets/images/delete.png")}/>
                   </View>
