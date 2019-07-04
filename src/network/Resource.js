@@ -19,12 +19,13 @@ class Resource {
 
   async createTask(body){
     const header = {
-      "Authorization": "",
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJrYXJ5YXdhbiIsInN1YiI6MiwiaWF0IjoxNTYxOTE2NzI5LCJleHAiOjMxNzEzMTQzNjcyOX0.JfmOjuyl39_yDsDEj2DjW21Q1QKroxWvRQ3UU5xQnzI",
+      "Content-Type": "application/json",
     }
 
-    let bodyForm = Object.keys(body).map(key => encodeURIComponent(key) + '=' + encodeURIComponent(body[key])).join('&');
+    console.log(JSON.stringify(body))
 
-    let res = await Request.post(URI.RESOURCE + URI.ENDPOINT_CREATE_TASK, header, bodyForm);
+    let res = await Request.post(URI.RESOURCE + URI.ENDPOINT_CREATE_TASK, header, JSON.stringify(body));
     
     return new Promise((resolve, reject) => {
       try{

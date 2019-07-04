@@ -21,14 +21,7 @@ export default class main extends Component {
     
     Resource.getTask()
     .then((res) => {
-
-      let currentdata = this.state.data;
-
-      res.result.map((item) => {
-        currentdata.push(item)
-      })
-
-      this.setState({loading: false, data: currentdata})
+      this.setState({loading: false, data: res.result})
     })
     .catch((err) => {
       alert(err)
@@ -38,6 +31,7 @@ export default class main extends Component {
   render() {
     return (
       <View>
+        <Button title="Tambah Task" onPress={() => this.props.navigation.navigate("CreateScreen")} />
         <FlatList
           refreshing={this.state.loading}
           onRefresh={() => this.getData()}
@@ -50,7 +44,6 @@ export default class main extends Component {
             </View>
           )}
         />
-        <Button title="Tambah Task" onPress={() => this.props.navigation.navigate("CreateScreen")} />
       </View>
     )
   }
