@@ -28,6 +28,22 @@ class Request{
 
     return data;
   }
+  
+  async put(url, header = {}, body = {}){
+    let data = await fetch(url, {
+      method: 'PUT',
+      headers: header,
+      body: body,
+    })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return {responseJson};
+    }).catch((error) => {
+      return {error}
+    });
+
+    return data;
+  }
 }
 
 export default new Request();

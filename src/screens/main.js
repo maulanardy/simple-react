@@ -48,7 +48,11 @@ export default class main extends Component {
                   <Text>{item.nama}</Text>
                   <Text>{item.divisi_name}</Text>
                 </View>
-                <TouchableOpacity style={{marginHorizontal:10}}>
+                <TouchableOpacity style={{marginHorizontal:10}} onPress={() => {
+                  this.props.navigation.navigate("EditScreen", {
+                    data: this.state.data[index]
+                  })
+                  }}>
                   <View style={{backgroundColor:"#2ecc71", padding:5, justifyContent:"center", alignItems:"center", width:30, height:30, borderRadius: 15}}>
                     <Image style={{width: 13, height:13, tintColor:"#FFF"}} source={require("../assets/images/edit.png")}/>
                   </View>
