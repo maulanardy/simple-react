@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Text, View, Button, Alert, FlatList} from 'react-native'
+import { Text, View, Button, Alert, FlatList, TouchableOpacity} from 'react-native'
+import Resource from '../network/Resource'
 
 export default class main extends Component {
   constructor(props){
@@ -17,36 +18,36 @@ export default class main extends Component {
 
   getData(){
     this.setState({loading: true})
-
-    //fetch data from server
-    fetch("https://jsonplaceholder.typicode.com/users")
-    .then((response) => response.json())
-    .then((responseJson) => {
-      let currentdata = this.state.data;
-
-      responseJson.map((item) => {
-        currentdata.push(item)
-      })
-
-      this.setState({loading: false, data: currentdata})
-      // return responseJson;
-    }).catch((error) =>{
-      // return {error}
+    
+    Resource.getTask()
+    .then((res) => {
+      this.setState({loading: false, data: res.result})
+    })
+    .catch((err) => {
+      alert(err)
     })
   }
 
   render() {
     return (
       <View>
+        <Button title="Tambah Task" onPress={() => this.props.navigation.navigate("CreateScreen")} />
         <FlatList
           refreshing={this.state.loading}
           onRefresh={() => this.getData()}
           style={{}}
           data={this.state.data}
-          renderItem={({item, i}) => (
-            <View style={{marginBottom:20, padding:20, borderBottomColor: "#aaa", borderBottomWidth: 1}}>
-              <Text>{item.name}</Text>
-            </View>
+          renderItem={({item, index}) => (
+            <TouchableOpacity onPress={() => {
+              this.props.navigation.navigate("DetailScreen",{
+                data: this.state.data[index]
+              })}
+            }>
+              <View style={{marginBottom:20, padding:20, borderBottomColor: "#aaa", borderBottomWidth: 1}}>
+                <Text>{item.nama}</Text>
+                <Text>{item.divisi_name}</Text>
+              </View>
+            </TouchableOpacity>
           )}
         />
       </View>
