@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { Text, View, Button, Alert, FlatList, TouchableOpacity, Image} from 'react-native'
 import Resource from '../network/Resource'
 
-//new push
-
 export default class main extends Component {
   constructor(props){
     super(props);
