@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import {createStackNavigator, createMaterialTopTabNavigator} from 'react-navigation'
 import mainScreen from '../screens/main'
+import createScreen from '../screens/create'
 import profileScreen from '../screens/profile'
 
 const HeaderStyle = () => ({
@@ -17,12 +18,7 @@ const MainTab = createMaterialTopTabNavigator({
   MainTab: {
     screen: mainScreen,
     navigationOptions: (props) => ({
-      title: "PESERTA"
-    })
-  },Second: {
-    screen: mainScreen,
-    navigationOptions: (props) => ({
-      title: "PESERTA 2"
+      title: "TASK"
     })
   },
   ProfileTab: {
@@ -64,6 +60,12 @@ export default Main = createStackNavigator({
       screen: MainTab,
       navigationOptions: (props) => ({
         title: "Beranda",
+      })
+  },
+  CreateScreen:{
+      screen: createScreen,
+      navigationOptions: (props) => ({
+        title: "Create",
       })
   }
 },
