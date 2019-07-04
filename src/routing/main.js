@@ -3,6 +3,7 @@ import { Text, View } from 'react-native'
 import {createStackNavigator, createMaterialTopTabNavigator} from 'react-navigation'
 import mainScreen from '../screens/main'
 import createScreen from '../screens/create'
+import detailScreen from '../screens/detail'
 import profileScreen from '../screens/profile'
 
 const HeaderStyle = () => ({
@@ -60,6 +61,12 @@ export default Main = createStackNavigator({
       screen: MainTab,
       navigationOptions: (props) => ({
         title: "Beranda",
+      })
+  },
+  DetailScreen:{
+      screen: detailScreen,
+      navigationOptions: (props) => ({
+        title: "Detail",
       })
   },
   CreateScreen:{
