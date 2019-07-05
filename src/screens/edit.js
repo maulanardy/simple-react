@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, TextInput, StyleSheet, TouchableOpacity} from 'react-native'
 import Resource from '../network/Resource'
-import DatePicker from 'react-native-datepicker'
 
 const myStyle = StyleSheet.create({
   form: {
@@ -15,23 +14,24 @@ const myStyle = StyleSheet.create({
   }
 })
 
-export default class create extends Component {
+export default class edit extends Component {
 
   constructor(props){
     super(props)
+    this.data = this.props.navigation.getParam("data", null)
 
     this.state = {
-      category_id : "",
-      nama : "",
-      pic : "",
-      anggota : "",
-      notes : "",
-      jenis_task : "",
-      tindak_lanjut : "",
-      task_start : "",
-      task_end : "",
-      task_date : "",
-      task_due : ""
+      category_id : this.data.category_id,
+      nama : this.data.nama,
+      pic : this.data.pic,
+      anggota : this.data.anggota,
+      notes : this.data.notes,
+      jenis_task : this.data.jenis_task,
+      tindak_lanjut : this.data.tindak_lanjut,
+      task_start : this.data.task_start,
+      task_end : this.data.task_end,
+      task_date : this.data.task_date,
+      task_due : this.data.task_due
     }
   }
 
@@ -50,10 +50,10 @@ export default class create extends Component {
       "task_due" : this.state.task_due
     }
 
-    Resource.createTask(body)
+    Resource.editTask(body, this.data.id)
     .then((res) => {
       this.resetForm();
-      alert("Submit Sukses")
+      alert("Edit Sukses")
     })
     .catch((err) => {
       alert(JSON.stringify(err))
@@ -89,7 +89,7 @@ export default class create extends Component {
           style={myStyle.form} 
           value={this.state.nama}
           onChangeText={(nama) => this.setState({nama})}
-          placeholder="Nama"
+          placeholder={"Nama"}
         />
         <TextInput 
           style={myStyle.form} 
@@ -145,30 +145,6 @@ export default class create extends Component {
           onChangeText={(task_due) => this.setState({task_due})}
           placeholder="Task Due"
         />
-        <DatePicker
-        style={{width: 200}}
-        date={this.state.date}
-        mode="date"
-        placeholder="select date"
-        format="YYYY-MM-DD"
-        minDate="2016-05-01"
-        maxDate="2016-06-01"
-        confirmBtnText="Confirm"
-        cancelBtnText="Cancel"
-        customStyles={{
-          dateIcon: {
-            position: 'absolute',
-            left: 0,
-            top: 4,
-            marginLeft: 0
-          },
-          dateInput: {
-            marginLeft: 36
-          }
-          // ... You can check the source to find the other keys.
-        }}
-        onDateChange={(date) => {this.setState({date: date})}}
-      />
         <TouchableOpacity style={{marginTop: 20}} onPress={() => this.submitTask()}>
           <View style={{backgroundColor:"#F7CA18", padding: 10}}>
             <Text style={{color:"#FFF", textAlign:"center"}}>SUBMIT</Text>

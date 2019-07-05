@@ -4,6 +4,7 @@ import {createStackNavigator, createMaterialTopTabNavigator} from 'react-navigat
 import mainScreen from '../screens/main'
 import createScreen from '../screens/create'
 import detailScreen from '../screens/detail'
+import editScreen from '../screens/edit'
 import profileScreen from '../screens/profile'
 
 const HeaderStyle = () => ({
@@ -73,6 +74,12 @@ export default Main = createStackNavigator({
       screen: createScreen,
       navigationOptions: (props) => ({
         title: "Create",
+      })
+  },
+  EditScreen:{
+      screen: editScreen,
+      navigationOptions: (props) => ({
+        title: "Edit",
       })
   }
 },
